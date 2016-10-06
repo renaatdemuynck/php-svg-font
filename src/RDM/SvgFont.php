@@ -7,15 +7,18 @@ use DOMDocument;
 class SvgFont
 {
 
-    private $font;
+    private $id;
+
+    private $glyphs;
 
     public function __construct(DOMNode $fontElement)
     {
-        $this->font['id'] = $fontElement->getAttribute('id');
+        $this->id = $fontElement->getAttribute('id');
         
+        // Iterate over each glyph and store it in an array for fast access
         foreach ($fontElement->getElementsByTagName('glyph') as $glyphNode) {
-            $this->font['glyphs'][$glyphNode->getAttribute('unicode')] = [
-                'name' => $glyphNode->getAttribute('glyph-name'),
+            // Store data for each glyph in an array using the unicode value as the key
+            $this->glyphs[$glyphNode->getAttribute('unicode')] = [
                 'path' => $glyphNode->getAttribute('d'),
                 'advx' => $glyphNode->getAttribute('horiz-adv-x')
             ];
@@ -29,7 +32,7 @@ class SvgFont
         $advance = 0;
         
         foreach (preg_split('//u', $text, null, PREG_SPLIT_NO_EMPTY) as $char) {
-            $glyph = $this->font['glyphs'][$char];
+            $glyph = $this->glyphs[$char];
             
             $path = $document->createElement('path');
             $path->setAttribute('d', $glyph['path']);
