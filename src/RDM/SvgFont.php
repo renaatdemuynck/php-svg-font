@@ -9,6 +9,8 @@ class SvgFont
 
     private $id;
 
+    private $unicodes;
+
     private $glyphs;
 
     public function __construct(DOMNode $fontElement)
@@ -17,6 +19,9 @@ class SvgFont
         
         // Iterate over each glyph and store it in an array for fast access
         foreach ($fontElement->getElementsByTagName('glyph') as $glyphNode) {
+            // Store each glyph id in an array using the glyph name as the key
+            $this->unicodes[$glyphNode->getAttribute('glyph-name')] = $glyphNode->getAttribute('unicode');
+            
             // Store data for each glyph in an array using the unicode value as the key
             $this->glyphs[$glyphNode->getAttribute('unicode')] = [
                 'path' => $glyphNode->getAttribute('d'),
