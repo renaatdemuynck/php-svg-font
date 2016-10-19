@@ -59,7 +59,7 @@ class SvgFont
         }
     }
 
-    public function generateSvg($text)
+    public function generateSvg($text, $options = [])
     {
         $chars = preg_split('//u', $text, null, PREG_SPLIT_NO_EMPTY);
         $document = new DOMDocument();
@@ -76,7 +76,7 @@ class SvgFont
             $path->setAttribute('transform', 'translate(' . $advance . ', 1000) scale(1, -1)');
             
             // Add glyph advance to total
-            $advance += $glyph->advx;
+            $advance += $glyph->advx + $options['letter-spacing'];
             
             // Subtract kern value from advance total if kerning is enabled
             if (($i + 1) < mb_strlen($text) && isset($glyph->kern[$chars[$i + 1]])) {
