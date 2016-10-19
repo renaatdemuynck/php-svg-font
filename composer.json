@@ -1,0 +1,11 @@
+{
+    "name": "renaatdemuynck/php-svg-font",
+    "description": "Render SVG fonts as paths.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Renaat De Muynck",
+            "email": "renaat.demuynck@gmail.com"
+        }
+    ]
+}
