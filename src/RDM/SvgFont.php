@@ -25,7 +25,7 @@ class SvgFont
             // Store data for each glyph in an array using the unicode value as the key
             $this->glyphs[$glyphNode->getAttribute('unicode')] = (object) [
                 'path' => $glyphNode->getAttribute('d'),
-                'advx' => $glyphNode->getAttribute('horiz-adv-x')
+                'advx' => $glyphNode->hasAttribute('horiz-adv-x') ? $glyphNode->getAttribute('horiz-adv-x') : $fontElement->getAttribute('horiz-adv-x')
             ];
         }
     }
